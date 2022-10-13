@@ -1,0 +1,45 @@
+resilience4j:
+  circuitbreaker:
+    configs:
+      defecto:
+        sliding-window-size: 6
+        failure-rate-threshold: 50
+        permitted-number-of-calls-in-half-open-state: 4
+        slow-call-rate-threshold: 50
+        slow-call-duration-threshold: 2s
+    instances:
+      products:
+        base-config: defecto
+  timelimiter:
+    configs:
+      defecto:
+        timeout-duration: 2s
+    instances:
+      products:
+      base-config: defecto
+
+spring:
+  cloud:
+    gateway:
+      routes:
+        - id: ms-products
+          uri: lb://ms-products
+          predicates:
+            - Path=/api/products/**
+          filters:
+            - name: circuitbreaker
+              args:
+                name: products
+                statusCode: 500
+            - StripPrefix=2
+            - name: CustomGateway
+              args:
+                menssage: Hello world
+                cookieName: galleta
+                cookieValue: soda
+        - id: ms-items
+          uri: lb://ms-items
+          predicates:
+            - Path=/api/items/**
+          filters:
+            - StripPrefix=2
