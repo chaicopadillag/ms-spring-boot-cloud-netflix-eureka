@@ -37,6 +37,16 @@ public class User implements Serializable {
     @Column(name = "is_enabled")
     private Boolean isEnabled;
 
+    private Integer intents;
+
+    public Integer getIntents() {
+        return intents;
+    }
+
+    public void setIntents(Integer intents) {
+        this.intents = intents;
+    }
+
     @ManyToMany(fetch = FetchType.LAZY)
     @JoinTable(name = "user_has_roles", joinColumns = @JoinColumn(name = "user_id"), inverseJoinColumns = @JoinColumn(name = "role_id"), uniqueConstraints = {
             @UniqueConstraint(columnNames = { "user_id", "role_id" }) })

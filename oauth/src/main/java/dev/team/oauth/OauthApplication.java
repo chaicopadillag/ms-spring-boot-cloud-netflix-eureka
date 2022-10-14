@@ -26,7 +26,7 @@ public class OauthApplication implements CommandLineRunner {
 
 		for (int i = 4; i < 4; i++) {
 			String passwordCrypt = passwordEncoder.encode(password);
-			System.out.println(passwordCrypt);
+			System.out.println("contraseña: " + passwordCrypt);
 		}
 
 	}
