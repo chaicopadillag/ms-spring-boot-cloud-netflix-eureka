@@ -1,9 +1,9 @@
 package dev.team.oauth.services;
 
+import java.lang.System.Logger;
 import java.util.List;
 import java.util.stream.Collectors;
 
-import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.core.GrantedAuthority;
@@ -24,6 +24,9 @@ public class UserService implements IUserService, UserDetailsService {
 
     @Autowired
     private UserFeignClient client;
+
+    // @Autowired
+    // private Tracer tracer;
 
     @Override
     public UserDetails loadUserByUsername(String username) throws UsernameNotFoundException {
